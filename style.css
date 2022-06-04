@@ -1,0 +1,79 @@
+*,
+::before,
+::after
+{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* cursor: url(./cursors/iconmonstr-cursor-6.svg), auto; */
+    height: 100vh;
+}
+
+h1 {
+    background: #a9d7de;
+    text-align: center;
+    margin-bottom: 100px;
+    padding: 50px 0;
+    cursor: url(./cursors/iconmonstr-cursor-6.svg), auto;
+}
+
+.container-all-box {
+    background-color: #a9d7de;
+    width: 100%;
+    display: flex;
+    /* position: relative; */
+}
+
+.box {
+    width: 50px;
+    height: 50px;
+    border: 1px solid black;
+    margin: 1px;
+    position: relative;
+}
+
+.box > img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.div-1 {
+    background-color: aliceblue;
+    cursor: url(./cursors/iconmonstr-cursor-1.svg) 3 0, auto;
+}
+
+.div-2 {
+    background-color: aliceblue;
+    cursor: url(./cursors/iconmonstr-cursor-2.svg), auto;
+}
+
+.div-3 {
+    background: aliceblue;
+    cursor: url(./cursors/iconmonstr-cursor-3.svg), auto;
+}
+
+.div-4 {
+    background: aliceblue;
+    cursor: url(./cursors/iconmonstr-cursor-4.svg), auto;
+}
+
+.div-5 {
+    background: aliceblue;
+    cursor: url(./cursors/iconmonstr-cursor-5.svg), auto;
+}
+
+.div-6 {
+    background: aliceblue;
+    cursor: url(./cursors/iconmonstr-cursor-6.svg), auto;
+}
+
+.div-32 {
+    background: aliceblue;
+    cursor: url(./cursors/iconmonstr-cursor-32.svg), auto;
+}
+
