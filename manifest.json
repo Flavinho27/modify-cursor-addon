@@ -3,27 +3,30 @@
     "manifest_version": 2,
     "name": "ModifyCursor",
     "version": "1.0",
-  
+
     "description": "Modify your cursor easily !",
-  
+
     "icons": {
-      "64": "icons/cursor.png"
+        "32": "icons/cursor-32.png",
+        "64": "icons/cursor-64.png",
+        "128": "icons/cursor-128.png"
     },
-  
-    "content_scripts": [
-      {
-        "matches": ["<all_urls>"],
-        "js": ["cursor.js"]
-      }
-    ],
 
     "browser_action": {
         "default_icon": {
-          "64": "icons/cursor.png"
+            "32": "icons/cursor-32.png"
         },
         "default_title": "ModifyCursor",
         "default_popup": "popup/cursor.html"
-      }
-  
-  }
-  
+    },
+
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["cursor.js"]
+        }
+    ],
+
+    "web_accessible_resources": ["popup/cursors/*.svg"]
+    
+}
