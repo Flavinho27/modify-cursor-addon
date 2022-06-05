@@ -12,7 +12,6 @@ h1 {
     text-align: center;
     margin-bottom: 10px;
     padding: 25px 0;
-    cursor: url(./cursors/iconmonstr-cursor-5.svg) 3 0, auto;
 }
 
 .container-all-box {
@@ -39,7 +38,7 @@ h1 {
 
 .div-1 {
     background-color: aliceblue;
-    cursor: url(./cursors/iconmonstr-cursor-1.svg) 3 0, auto;
+    cursor: url(./cursors/iconmonstr-cursor-1.svg), auto;
 }
 
 .div-2 {

@@ -17,15 +17,18 @@
             "32": "icons/cursor-32.png"
         },
         "default_title": "ModifyCursor",
-        "default_popup": "popup/cursor.html"
+        "default_popup": "popup/cursor.html",
+        "browser_style": true
     },
 
     "content_scripts": [
         {
             "matches": ["<all_urls>"],
-            "js": ["cursor.js"]
+            "js": ["content_scripts/script.js"]
         }
     ],
+
+    "permissions": ["<all_urls>", "storage"],
 
     "web_accessible_resources": ["popup/cursors/*.svg"]
     
