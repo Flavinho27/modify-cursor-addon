@@ -11,6 +11,15 @@
     }
 
     /**
+     * Reset the cursor and save it 
+     */
+     function resetCursor() {
+        let newValueForCursor = "auto";
+        document.body.style.cursor = newValueForCursor;
+        saveCursor(newValueForCursor);
+    }
+
+    /**
      * Save the cursor
      * @param {String} cursorValue 
      */
@@ -27,6 +36,9 @@
     browser.runtime.onMessage.addListener((message) => {
         if (message.command === "modify-cursor") {
             changeCursor(message.cursorURL);
+        }
+        else if (message.command === "reset") {
+            resetCursor();
         }
     });
 })();

@@ -18,6 +18,12 @@ function listenForClicks() {
             });
         };
 
+        function resetCursor(tabs) {
+            browser.tabs.sendMessage(tabs[0].id, {
+                command: "reset"
+            });
+        }
+
         /**
          * Log the error in the console
          * @param {Object} error the error
@@ -43,6 +49,10 @@ function listenForClicks() {
             browser.tabs.query({active: true, currentWindow: true})
                 .then(modifyCursor)
                 .catch(reportQueryError);
+        }
+        else if (e.target.classList.contains("reset")) {
+            browser.tabs.query({active: true, currentWindow: true})
+                .then(resetCursor);
         }
     });
 }
