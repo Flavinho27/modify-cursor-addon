@@ -1,39 +1,59 @@
-function changeCursor(c) {
-    let children = c.childNodes;
-    // on récupère la source du nouveau curseur
-    let pathToNewCursor = children[1].src;
-    let newValueForCursor = "url("+pathToNewCursor+"), auto";
-    document.body.style.cursor = newValueForCursor;
-}
-
+/**
+ * Listen for clicks on the buttons, and send the appropriate message to
+ * the content script in the page.
+ */
 function listenForClicks() {
     document.addEventListener("click", (e) => {
         let url;
 
+        /**
+         * Send a "modify-cursor" message to the content script (modify-cursor.js)
+         * in the active tab.
+         * @param {Object} tabs tabs of the current window
+         */
         function modifyCursor(tabs) {
-            tabs.forEach(tab => {
-                browser.tabs.sendMessage(tab.id, {
-                    command: "modify-cursor",
-                    cursorURL: url
-                });
+            browser.tabs.sendMessage(tabs[0].id, {
+                command: "modify-cursor",
+                cursorURL: url
             });
         };
 
-        // si on clique sur la div
+        /**
+         * Log the error in the console
+         * @param {Object} error the error
+         */
+        function reportQueryError(error) {
+            console.error(`Could not modify-cursor: ${error}`);
+        }
+
+        /**
+         * Get the active tab,
+         * then call "modifyCursor()"
+         */
+        // if we click on the div
         if (e.target.classList.contains("box")) {
             let children = e.target.childNodes;
             url = children[1].src;
-            browser.tabs.query({currentWindow: true})
+            browser.tabs.query({active: true, currentWindow: true})
                 .then(modifyCursor)
-                .catch(reportError);
-        } // si on clique sur l'image du curseur
+                .catch(reportQueryError);
+        } // if we click on the cursor image
         else if (e.target.classList.contains("cursor")) {
             url = e.target.src;
-            browser.tabs.query({currentWindow: true})
+            browser.tabs.query({active: true, currentWindow: true})
                 .then(modifyCursor)
-                .catch(reportError);
+                .catch(reportQueryError);
         }
     });
+}
+
+/**
+ * There was an error executing the script.
+ * Display the popup's error message.
+ * @param {Object} error the error
+ */
+function reportExecuteScriptError(error) {
+    console.error(`Failed to execute modify-cursor content script: ${error.message}`);
 }
 
 /**
@@ -43,3 +63,4 @@ function listenForClicks() {
  */
  browser.tabs.executeScript({file: "/content_scripts/modify-cursor.js", allFrames: true})
     .then(listenForClicks)
+    .catch(reportExecuteScriptError)
