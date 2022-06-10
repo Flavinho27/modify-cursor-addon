@@ -1,12 +1,12 @@
 const myCursors = document.querySelectorAll('.box');
-const BtnReset = document.querySelector('.reset');
+const resetBtn = document.querySelector('.reset');
 
 for (let i = 0; i < myCursors.length; i++) {
     const boxCursor = myCursors[i];
     boxCursor.addEventListener("click", () => {listenForClicks(boxCursor)});
 }
 
-BtnReset.addEventListener("click", () => {
+resetBtn.addEventListener("click", () => {
     function resetCursor(tabs) {
         browser.tabs.sendMessage(tabs[0].id, {
             command: "reset"
