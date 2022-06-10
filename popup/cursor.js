@@ -1,10 +1,20 @@
-
 const myCursors = document.querySelectorAll('.box');
+const BtnReset = document.querySelector('.reset');
 
 for (let i = 0; i < myCursors.length; i++) {
-    const cursor = myCursors[i];
-    cursor.addEventListener("click", listenForClicks);
+    const boxCursor = myCursors[i];
+    boxCursor.addEventListener("click", () => {listenForClicks(boxCursor)});
 }
+
+BtnReset.addEventListener("click", () => {
+    function resetCursor(tabs) {
+        browser.tabs.sendMessage(tabs[0].id, {
+            command: "reset"
+        });
+    };
+    browser.tabs.query({active: true, currentWindow: true})
+        .then(resetCursor)
+});
 
 let listenForClicks = (e) => {
     let url;
@@ -21,48 +31,15 @@ let listenForClicks = (e) => {
         });
     };
 
-    function resetCursor(tabs) {
-        browser.tabs.sendMessage(tabs[0].id, {
-            command: "reset"
-        });
-    }
-
-    /**
-     * Log the error in the console
-     * @param {Object} error the error
-     */
-    function reportQueryError(error) {
-        console.error(`Could not modify-cursor: ${error}`);
-    }
-
     /**
      * Get the active tab,
      * then call "modifyCursor()"
      */
-     let children = e.target.childNodes;
-     url = children[1].src;
-     browser.tabs.query({active: true, currentWindow: true})
-         .then(modifyCursor)
-         .catch(reportQueryError);
-
-    // // if we click on the div
-    // if (e.target.classList.contains("box")) {
-    //     let children = e.target.childNodes;
-    //     url = children[1].src;
-    //     browser.tabs.query({active: true, currentWindow: true})
-    //         .then(modifyCursor)
-    //         .catch(reportQueryError);
-    // } // if we click on the cursor image
-    // else if (e.target.classList.contains("cursor")) {
-    //     url = e.target.src;
-    //     browser.tabs.query({active: true, currentWindow: true})
-    //         .then(modifyCursor)
-    //         .catch(reportQueryError);
-    // }
-    // else if (e.target.classList.contains("reset")) {
-    //     browser.tabs.query({active: true, currentWindow: true})
-    //         .then(resetCursor);
-    // }
+    let children = e.childNodes;
+    url = children[1].src;
+    browser.tabs.query({active: true, currentWindow: true})
+        .then(modifyCursor)
+        .catch(reportQueryError);
 };
 
 /**
@@ -80,5 +57,3 @@ function reportExecuteScriptError(error) {
  * If we couldn't inject the script, handle the error.
  */
  browser.tabs.executeScript({file: "/content_scripts/modify-cursor.js", allFrames: true})
-    // .then(listenForClicks)
-    // .catch(reportExecuteScriptError)
