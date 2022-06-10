@@ -43,15 +43,6 @@ let listenForClicks = (e) => {
 };
 
 /**
- * There was an error executing the script.
- * Display the popup's error message.
- * @param {Object} error the error
- */
-function reportExecuteScriptError(error) {
-    console.error(`Failed to execute modify-cursor content script: ${error.message}`);
-}
-
-/**
  * When the popup loads, inject a content script into the active tab,
  * and add a click handler.
  * If we couldn't inject the script, handle the error.
